@@ -1,0 +1,57 @@
+cff-version: 1.0.0
+title: "Best Practices for Unsupervised Learning in Molecular Systems"
+message: "If you use this software or the accompanying article, please cite them as below."
+type: software
+version: 1.0.0
+license: MIT
+repository-code: "https://github.com/rociomer/unsupervised-learning-molecules"
+authors:
+  - family-names: Barrett
+    given-names: Rhyan
+  - family-names: Brahmasandra
+    given-names: Arnav
+  - family-names: Cheng
+    given-names: Bingqing
+    orcid: "https://orcid.org/0000-0002-3584-9632"
+  - family-names: Fonseca
+    given-names: Gregory
+    orcid: "https://orcid.org/0000-0002-8041-0063"
+  - family-names: Gilardoni
+    given-names: Ivan
+    orcid: "https://orcid.org/0000-0002-7504-9840"
+  - family-names: Mercado
+    given-names: Rocío
+    orcid: "https://orcid.org/0000-0002-6170-6088"
+  - family-names: Oestereich
+    given-names: Toni
+    orcid: "https://orcid.org/0009-0006-4144-6457"
+  - family-names: Pinheiro Jr
+    given-names: Max
+    orcid: "https://orcid.org/0000-0002-5120-4172"
+  - family-names: Yazdani
+    given-names: Hessam
+    orcid: "https://orcid.org/0000-0003-4809-1362"
+preferred-citation:
+  type: article
+  title: "Best Practices for Unsupervised Learning in Molecular Systems [Article v1.0]"
+  journal: "Living Journal of Computational Molecular Science"
+  year: 2026
+  authors:
+    - family-names: Barrett
+      given-names: Rhyan
+    - family-names: Brahmasandra
+      given-names: Arnav
+    - family-names: Cheng
+      given-names: Bingqing
+    - family-names: Fonseca
+      given-names: Gregory
+    - family-names: Gilardoni
+      given-names: Ivan
+    - family-names: Mercado
+      given-names: Rocío
+    - family-names: Oestereich
+      given-names: Toni
+    - family-names: Pinheiro Jr
+      given-names: Max
+    - family-names: Yazdani
+      given-names: Hessam

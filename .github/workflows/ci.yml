@@ -1,0 +1,75 @@
+# The notebooks are the deliverable, so continuous integration runs them.
+#
+# That is the whole idea: a notebook that no longer executes is a broken claim,
+# and the only way to know is to run it. Everything else here supports that.
+name: notebooks
+
+on:
+  push:
+  pull_request:
+  schedule:
+    # Weekly, on a clean machine. This is what catches dependency rot: code that
+    # was correct when published stops working because a library changed under it.
+    - cron: "0 6 * * 1"
+
+jobs:
+  run-notebooks:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -el {0}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          environment-file: environment.yml
+          activate-environment: ulms
+          # The runner ships a conda whose config adds the `defaults` channel.
+          # environment.yml asks for conda-forge only, and mixing the two is a
+          # common cause of solver failures, so drop it here as well.
+          conda-remove-defaults: "true"
+
+      - name: Cache the example data
+        uses: actions/cache@v4
+        with:
+          path: data
+          # Key on a hash of the derivation script, so changing how a file is built
+          # invalidates the cache. The weekly scheduled run also forces a fresh
+          # rebuild (below), which is what catches a silent upstream re-release.
+          key: example-data-${{ hashFiles('scripts/download_data.py') }}
+
+      - name: Build the example data
+        # On the weekly schedule, force a fresh download so an upstream re-release is
+        # caught; on pushes and pull requests, reuse whatever the cache restored.
+        run: python scripts/download_data.py ${{ github.event_name == 'schedule' && '--force' || '' }}
+
+      - name: Check the notebooks were committed without outputs
+        run: |
+          python - <<'PY'
+          import json, pathlib, sys
+          dirty = [p.name for p in sorted(pathlib.Path("notebooks").glob("*.ipynb"))
+                   if any(c.get("outputs") for c in json.loads(p.read_text())["cells"])]
+          if dirty:
+              sys.exit("committed with stored outputs: " + ", ".join(dirty)
+                       + "\nClear them before committing, so diffs stay readable.")
+          print("all notebooks are clean")
+          PY
+
+      - name: Run every notebook
+        run: |
+          for nb in notebooks/*.ipynb; do
+            echo "--- $nb"
+            jupyter nbconvert --to notebook --execute --output-dir /tmp/executed "$nb"
+          done
+
+      - name: Keep the executed notebooks
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: executed-notebooks
+          path: /tmp/executed
+          # Warn, do not fail. This step runs even when the job has already
+          # failed, and if the environment never built there is nothing to
+          # upload. Erroring here would bury the real failure under a second one.
+          if-no-files-found: warn

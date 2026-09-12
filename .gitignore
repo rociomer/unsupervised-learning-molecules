@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data: built from the original sources by scripts/download_data.py, not
+# committed. This is why a URL pointing into the repository tree returns 404.
+data/*
+!data/README.md
+data/_original_data/
+docs/
+paper/
+
+# Claude Code
+CLAUDE.md
+CLAUDE.local.md
+.claude/
+
+# OS
+.DS_Store

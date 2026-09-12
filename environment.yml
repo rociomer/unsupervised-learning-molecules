@@ -1,0 +1,31 @@
+# conda env create -f environment.yml && conda activate ulms
+#
+# Versions are pinned to minor releases. Unsupervised results are more sensitive
+# to library versions than supervised ones: default parameters change between
+# releases and several of these methods are stochastic, so an unpinned
+# environment is not a reproducible one.
+name: ulms
+channels:
+  - conda-forge
+  # Keeps conda from adding the `defaults` channel out of your global config.
+  # Everything here comes from conda-forge, so the environment resolves the same
+  # way on someone else's machine, and you skip the Anaconda terms-of-service
+  # prompt for a channel this project does not use.
+  - nodefaults
+dependencies:
+  - python=3.11
+  - numpy=1.26.*
+  - scipy=1.13.*
+  - scikit-learn=1.5.*
+  - pandas=2.2.*
+  - matplotlib=3.9.*
+  - rdkit=2024.03.*
+  - ase=3.23.*
+  - jupyter=1.0.*
+  - notebook=7.2.*
+  # Notebook 10 only. conda-forge builds PyTorch for both linux-64 and
+  # osx-arm64, and on Apple Silicon there is no CUDA build to opt out of, so no
+  # cpuonly marker is needed or available here.
+  - pytorch=2.3.*
+  # Notebook 06 only: SOAP atomic-environment descriptors (Section 6).
+  - dscribe=2.1.*

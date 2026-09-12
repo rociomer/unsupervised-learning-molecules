@@ -1,0 +1,16 @@
+# pip install -r requirements.txt
+#
+# The conda environment in environment.yml is the reproducible route. These pins
+# match its minor versions exactly, because unsupervised results shift with
+# library versions (default parameters change, and several methods are stochastic).
+numpy==1.26.*
+scipy==1.13.*
+scikit-learn==1.5.*
+pandas==2.2.*
+matplotlib==3.9.*
+rdkit==2024.03.*
+ase==3.23.*
+jupyter==1.0.*
+notebook==7.2.*
+torch==2.3.*          # notebook 10 only
+dscribe==2.1.*        # notebook 06 only

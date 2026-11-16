@@ -55,6 +55,12 @@ tracing it into a library. That makes the notebooks longer and it is the point.
 everything the notebooks use: RDKit, ASE and scikit-learn throughout, plus PyTorch, which only
 notebook 10 needs, and DScribe, which only notebook 06 needs.
 
+On Linux distributions with glibc 2.41 or newer (Ubuntu 25.04 and later, for
+example), `import torch` fails with "cannot enable executable stack". This
+affects notebook 10 only. After creating the environment, run
+`patchelf --clear-execstack "$CONDA_PREFIX"/lib/python3.11/site-packages/torch/lib/libtorch_cpu.so`
+(patchelf is available from conda-forge).
+
 `python scripts/download_data.py` fetches the four example data sets from their
 original sources and builds the files the notebooks read. It pulls about 250 MB
 the first time, mostly the MD17 trajectory, and caches it afterwards.

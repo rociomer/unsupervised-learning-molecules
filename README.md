@@ -1,18 +1,19 @@
 # Unsupervised Learning for Molecular Systems
 
-Companion code for the LiveCoMS Best Practices Guide ***Best Practices for Unsupervised Learning in Molecular Systems* (Article v1.0)**.
+Companion code for ***Best Practices for Unsupervised Learning in Molecular Systems***, which is under review as as a LiveCoMS Best Practices Guide.
 
-This is the first release of the code. Both it and the article were revised substantially in response to review before that release, so the notebooks here differ considerably from the ones circulated with the original submission.
+This is the first release of the code. Both it and the article were revised substantially in response to review before that release, so the notebooks here differ considerably from the ones circulated with the [original submission](https://github.com/rhyan10/unsupervised-learning-molecular-systems).
 
-This repository is not a collection of demonstrations. It is a set of tools for doing unsupervised analysis of molecular data defensibly, together with notebooks that show each recommendation applied to real data, including examples where it changes the answer.
+This repository is not a collection of demonstrations. It is a set of tools for doing unsupervised analysis of molecular data according to best practices, together with notebooks that show each recommendation applied to actual molecular data.
 
-The guiding idea, from Section 1 of the article, is that unsupervised learning carries no automatic error signal of the kind supervised learning provides, so the practitioner has to supply one deliberately. Null models, stability analysis, honest baselines and statistical tests are how that is done here.
+The guiding idea, from Section 1 of the article, is that unsupervised learning carries no automatic error signal of the kind supervised learning provides, so we as practitioners have to supply one deliberately. Null models, stability analysis, baselines, and statistical tests are how that is done here.
 
 ---
 
 ## Start here
 
-Three steps, in this order. Set aside an afternoon, most of it spent waiting for notebooks to run.
+Three steps, in this order. Running all seven notebooks takes about 35 minutes on a laptop
+(33 minutes, measured on an Apple M2 Pro), most of it in notebooks 07, 08 and 10.
 
 1. **Set up the environment** (below). If you have conda, `environment.yml`
    pins every version and resolves the dependencies for you.
@@ -51,7 +52,8 @@ tracing it into a library. That makes the notebooks longer and it is the point.
 
 `environment.yml` pins exact minor versions and is the reproducible route.
 `requirements.txt` is there if you would rather use pip. Either way you get
-RDKit, ASE, scikit-learn and PyTorch, which between them cover every notebook.
+everything the notebooks use: RDKit, ASE and scikit-learn throughout, plus PyTorch, which only
+notebook 10 needs, and DScribe, which only notebook 06 needs.
 
 `python scripts/download_data.py` fetches the four example data sets from their
 original sources and builds the files the notebooks read. It pulls about 250 MB
@@ -68,7 +70,7 @@ Numbered to match the sections of the article, so you can go from a recommendati
 | [`04-data-curation-and-standardization`](notebooks/04-data-curation-and-standardization.ipynb) | §4 | duplicates that only become visible after stereochemistry is standardized away |
 | [`05-splitting-and-leakage`](notebooks/05-splitting-and-leakage.ipynb) | §5 | a random split of an analogue-rich library that strands near-duplicates, and a scaffold split that barely helps; a scaler fitted before splitting |
 | [`06-representations-and-baselines`](notebooks/06-representations-and-baselines.ipynb) | §6 | two descriptor sets that disagree about which molecules are neighbors |
-| [`07-dimensionality-reduction`](notebooks/07-dimensionality-reduction.ipynb) | §7 | t-SNE producing a silhouette of 0.39 from **pure noise** |
+| [`07-dimensionality-reduction`](notebooks/07-dimensionality-reduction.ipynb) | §7 | a silhouette of 0.38 from **pure noise**, once it is projected to two dimensions |
 | [`08-clustering`](notebooks/08-clustering.ipynb) | §8 | an "optimal" *k* found in data with no clusters |
 | [`09-statistical-comparison`](notebooks/09-statistical-comparison.ipynb) | §9 | a naive comparison declaring a winner among identical methods |
 | [`10-generative-models`](notebooks/10-generative-models.ipynb) | §10 | a latent space "organized by chemistry" that is organized by size |
@@ -131,4 +133,4 @@ See `CITATION.cff`, or use GitHub's *Cite this repository* button.
 
 ## License
 
-MIT for the code (see `LICENSE`). The article itself is licensed separately by LiveCoMS.
+MIT for the code (see `LICENSE`). 

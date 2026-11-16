@@ -22,3 +22,7 @@ CLAUDE.local.md
 
 # OS
 .DS_Store
+
+# Other
+paper/*
+CHANGED-NUMBERS.md

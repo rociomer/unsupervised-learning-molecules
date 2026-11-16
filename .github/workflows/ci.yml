@@ -30,6 +30,14 @@ jobs:
           # common cause of solver failures, so drop it here as well.
           conda-remove-defaults: "true"
 
+      - name: Check that the environment imports
+        # A broken environment should fail here in seconds, not after forty minutes
+        # of notebooks. The package list records which builds the solver picked.
+        run: |
+          python -c "import numpy, scipy, sklearn, pandas, rdkit, ase, dscribe; print('core imports ok')"
+          python -c "import torch; print('torch', torch.__version__)"
+          conda list | grep -i -E "^(pytorch|libtorch|numpy|mkl|libblas|openblas|libprotobuf|libabseil|python) "
+
       - name: Cache the example data
         uses: actions/cache@v4
         with:
